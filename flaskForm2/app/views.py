@@ -1,37 +1,14 @@
 from flask import render_template, flash, redirect, session, url_for, request, g
 from flask.ext.login import login_user, logout_user, current_user, login_required
 from app import app, db, lm, oid
-from forms import LoginForm, EditForm, NewForm
+from forms import NewForm
 from models import User, ROLE_USER, ROLE_ADMIN
 from datetime import datetime
-
-@app.route('/')
-@app.route('/index')
-@login_required
-def index():
-    user = g.user
-    posts = [ # fake array of posts
-        { 
-            'author': { 'nickname': 'Jon' }, 
-            'body': 'Nishikori won!!' 
-        },
-        { 
-            'author': { 'nickname': 'Alice' }, 
-            'body': 'It was a great movie!' 
-        }
-    ]
-    return render_template("index.html",
-        title = 'Home',
-        user = user,
-        posts = posts)
 
 @app.before_request
 def before_request():
     g.user = current_user
-    if g.user.is_authenticated():
-        g.user.last_seen = datetime.utcnow()
-        db.session.add(g.user)
-        db.session.commit()
+
 
 @app.route('/login', methods = ['GET', 'POST'])
 @oid.loginhandler
@@ -70,44 +47,12 @@ def after_login(resp):
         remember_me = session['remember_me']
         session.pop('remember_me', None)
     login_user(user, remember = remember_me)
-    return redirect(request.args.get('next') or url_for('index'))
+    return redirect(request.args.get('next') or url_for('enter'))
 
 @app.route('/logout')
 def logout():
     logout_user()
-    return redirect(url_for('index'))
-
-@app.route('/edit', methods = ['GET', 'POST'])
-@login_required
-def edit():
-    form = EditForm()
-    if form.validate_on_submit():
-        g.user.nickname = form.nickname.data
-        g.user.about_me = form.about_me.data
-        db.session.add(g.user)
-        db.session.commit()
-        flash('Your changes have been saved.')
-        return redirect(url_for('user', nickname = g.user.nickname))
-    else:
-        form.nickname.data = g.user.nickname
-        form.about_me.data = g.user.about_me
-    return render_template('edit.html',
-        form = form)
-
-@app.route('/user/<nickname>')
-@login_required
-def user(nickname):
-    user = User.query.filter_by(nickname = nickname).first()
-    if user == None:
-        flash('User ' + nickname + ' not found.')
-        return redirect(url_for('index'))
-    posts = [
-        { 'author': user, 'body': 'Test post #1' },
-        { 'author': user, 'body': 'Test post #2' }
-    ]
-    return render_template('user.html',
-        user = user,
-        posts = posts)
+    return redirect(url_for('enter'))
 
 @app.route('/enter', methods = ['GET', 'POST'])
 def enter():
@@ -124,7 +69,7 @@ def enter():
         db.session.add(g.user)
         db.session.commit()
         flash('Your changes have been saved.')
-        return redirect(url_for('user', nickname = g.user.nickname))
+        return redirect(url_for('enter'))
     else:
         form.longitude.data = g.user.longitude
         form.latitude.data = g.user.latitude

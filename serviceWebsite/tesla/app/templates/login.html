@@ -13,7 +13,7 @@ function set_openid(openid, pr)
     }
     form = document.forms['login'];
     form.elements['openid'].value = openid;
-}
+    document.getElementById("login").submit();}
 </script>
 <style>
     body{
@@ -35,11 +35,10 @@ function set_openid(openid, pr)
         {% for error in form.errors.openid %}
         <span style="color: red;">[{{error}}]</span>
         {% endfor %}<br>
-        |{% for pr in providers %}
-        <a href="javascript:set_openid('{{pr.url}}', '{{pr.name}}');">{{pr.name}}</a> |
+        {% for pr in providers %}
+        <p><button onclick="set_openid('{{pr.url}}', '{{pr.name}}')">Sign In With Google</button></p>
         {% endfor %}
     </p>
     <p>{{form.remember_me}} Remember Me</p>
-    <p><input type="submit" value="Sign In"></p>
 </form>
 {% endblock %}

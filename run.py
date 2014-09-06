@@ -54,7 +54,7 @@ def main():
     	server.sendmail( 'teslaalert@tls.com', '4129252235@vtext.com', 'Closed your roof yo' )
     else:
     	print "To be implemented"
-    time.sleep(5)
+    time.sleep(300)
 
 
 if __name__ == '__main__':

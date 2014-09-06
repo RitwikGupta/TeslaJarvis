@@ -2,19 +2,41 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div>
-  <h1 style="text-align:center">User: {{user.nickname}}!</h1>
-</div>
-<hr>
-<div class="row" style="text-align:center">
-{% if g.user.teslaEmail == None %}
-	<form class="form" action={{ url_for('enterData') }}
+<style>
+  .outer {
+    height:88%;
+    display: table;
+    width: 100%;
+    padding-right: 0;
+    padding-left: 0;
+  }
+  .inner {
+    height: 85%;
+    display: table-cell;
+    vertical-align: middle;
+    width:100%;
+  }
+  .centered {
+    float: none;
+    margin: 0 auto;
+  }
+</style>
+<div class="outer"> 
+  <div class="inner">
+    <h1 style="text-align:center" class="centered">User: {{user.nickname}}!</h1>
+  <hr>
+  <div class="row" style="text-align:center">
+  {% if g.user.teslaEmail == None %}
+	 <form class="form" action={{ url_for('enterData') }}
 		<p><button type="submit" value="Enter data" class="btn btn-success" id="submit">Enter Data</button></p>
-	</form>
-{% else %}
-	<form class="form" action={{ url_for('featureSelect') }}>
-		<p><button type="submit" value="Feature select" class="btn btn-success" id="submit">Select features</button></p>
-	</form>
+	 </form>
+  {% else %}
+	 <form class="form" action={{ url_for('featureSelect') }}>
+		  <p><button type="submit" value="Feature select" class="btn btn-success" id="submit">Select features</button></p>
+	 </form>
+  </div>
+  </div>
+</div>
 {% endif %}
 </div>
 {% endblock %}

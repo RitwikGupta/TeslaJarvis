@@ -6,18 +6,38 @@
     {% extends "base.html" %}
 
     {% block content %}
-    <div class="container text-center">
-        <form class="form" method="post" action={{ url_for('data') }}>
-            <table class="table">
+
+<style>
+  .outer {
+    height:88%;
+    display: table;
+    width: 100%;
+    padding-right: 0;
+    padding-left: 0;
+  }
+  .inner {
+    height: 85%;
+    display: table-cell;
+    vertical-align: middle;
+    width:100%;
+  }
+  .centered {
+    float: none;
+    margin: 0 auto;
+  }
+</style>
+
+    <div class="container text-center outer">
+        <form class="form inner" method="post" action={{ url_for('data') }}>
+            <table class="col-sm-4 centered">
                 <tr>
                     <td>Email: </td><div class="input-group input-group-sm"><td><input name="email" class="form-control"></input></td></div>
                 </tr>
                 <tr>
-                    <td>Password: </td><div class="input-group input-group-sm"><td><input name="password" class="form-control"></input></td></div>
+                    <td>Password: </td><div style="padding-top: 10px" class="input-group input-group-sm"><td><input name="password" class="form-control"></input></td></div>
                 </tr>
-
             </table>
-            <button type="submit">Submit</button>
+            <button style="margin-top: 20px" class="btn btn-success" type="submit">Submit</button>
         </form>
     </div>
     {% endblock %}

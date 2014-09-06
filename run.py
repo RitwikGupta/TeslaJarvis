@@ -2,10 +2,14 @@ import urllib2
 import json, urllib
 import requests
 import smtplib
+import time
+
 
 server = smtplib.SMTP( "smtp.gmail.com", 587 )
 server.starttls()
 server.login( 'teslajarvis@gmail.com', 'fuckitshipit' )
+
+
 
 def commandSunRoof(state):
 	url = "https://private-887d5272e-timdorr.apiary-mock.com/vehicles/321/command/sun_roof_control?state=" + str(state)
@@ -42,14 +46,17 @@ def parseWeather(lat, lon):
 	return prob
 
 def main():
-	latLngTup = getLatLng()
-	prob = parseWeather(latLngTup[0], latLngTup[1])
+    latLngTup = getLatLng()
+    prob = parseWeather(latLngTup[0], latLngTup[1])
 
-	if int(prob) >= 50:
-		commandSunRoof("close")
-		server.sendmail( 'teslaalert@tls.com', '4129252235@vtext.com', 'Closed your roof yo' )
-	else:
-		print "To be implemented"
+    if int(prob) >= 50:
+    	commandSunRoof("close")
+    	server.sendmail( 'teslaalert@tls.com', '4129252235@vtext.com', 'Closed your roof yo' )
+    else:
+    	print "To be implemented"
+    time.sleep(5)
+
 
 if __name__ == '__main__':
-	main()
+    while True:
+	   main()

@@ -1,19 +1,22 @@
 <html>
   <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     {% if title %}
-    <title>{{title}} - microblog</title>
+    <title>{{title}} - TeslaJarvis</title>
     {% else %}
-    <title>microblog</title>
+    <title>TeslaJarvis</title>
     {% endif %}
   </head>
   <body>
-        <div>Microblog:
-        <a href="{{ url_for('index') }}">Home</a>
-        {% if g.user.is_authenticated() %}
-        | <a href="{{ url_for('user', nickname = g.user.nickname) }}">Your Profile</a>
-        | <a href="{{ url_for('logout') }}">Logout</a>
-        {% endif %}
-    </div>
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation" style="min-width: 200px">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="{{ url_for('index') }}" style="color:#D55B6A">TeslaJarvis</a>
+                    {% if g.user.is_authenticated() %}
+                    | <a href="{{ url_for('user', nickname = g.user.nickname) }}">Your Profile</a>
+                    | <a href="{{ url_for('logout') }}">Logout</a>
+                    {% endif %}
+            </div>
+        </div>
     <hr>
     {% with messages = get_flashed_messages() %}
     {% if messages %}

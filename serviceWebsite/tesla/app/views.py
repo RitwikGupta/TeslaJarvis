@@ -3,6 +3,8 @@ from flask.ext.login import login_user, logout_user, current_user, login_require
 from app import app, db, lm, oid
 from forms import LoginForm
 from models import User, ROLE_USER, ROLE_ADMIN
+import subprocess
+import os
 
 @lm.user_loader
 def load_user(id):
@@ -89,3 +91,12 @@ def enterData():
 @login_required
 def featureSelect():
     return render_template('feature_select.html')
+
+@app.route('/viewFeatures', methods=['POST'])
+@login_required
+def features():
+    value = []
+    value.append(request.form.get('sunroofPrecip'))
+    value.append(request.form.get('carCharge'))
+    subprocess.call(['python', './app/code/run.py', str(value[0]), str(value[1])])
+    return "Called"

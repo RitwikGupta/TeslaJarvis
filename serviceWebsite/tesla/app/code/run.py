@@ -3,7 +3,9 @@ import json, urllib
 import requests
 import smtplib
 import time
+import sys
 
+value = sys.argv
 
 server = smtplib.SMTP( "smtp.gmail.com", 587 )
 server.starttls()
@@ -51,7 +53,7 @@ def vehicleId():
     text = json.loads(jsonurl.read())
     return text[0]["vehicle_id"]
 
-def main():
+def main1():
     latLngTup = getLatLng()
     prob = parseWeather(latLngTup[0], latLngTup[1])
     prob = 60
@@ -60,10 +62,45 @@ def main():
     	server.sendmail( 'teslaalert@tls.com', '4129252235@vtext.com', 'We closed your roof because the probablity of precipitation in your area was ' + str(prob) + "%")
     else:
     	print "To be implemented"
-    time.sleep(300)
+def main2():
+	url = 'https://private-7faca7132-timdorr.apiary-mock.com/vehicles/321/command/drive_state'
+	webFile = urllib2.urlopen(url).read()
+	latLngTup = (webFile[webFile.index("latitude")+11:webFile.index("latitude")+20], webFile[webFile.index("longitude")+12:webFile.index("longitude")+22])
+	url = "https://private-887d5272e-timdorr.apiary-mock.com/vehicles/321/command/charge_state"
+	webFile = urllib2.urlopen(url).read()
+	chargingBatCurrTup = (webFile[webFile.index("state")+9:webFile.index("state")+17], webFile[webFile.index("battery_current")+18:webFile.index("battery_current")+22])
+	print chargingBatCurrTup
+	lat = float(latLngTup[0])
+	lon = float(latLngTup[1])
+	#If location is home
+	print "Out"
+	if abs(float(latLngTup[0]) - lat) < .0005 and abs(float(latLngTup[1]) - lon) < .0005:
+		print "In"
+		#if not charging
 
+		if chargingBatCurrTup[0] != "Charging" and float(chargingBatCurrTup[1]) <= -.01:
+			print "sent"
+			server.sendmail( 'teslaalert@tls.com', '4129252235@vtext.com', 'You forgot to plug in your car!' )
+
+		else:
+			return True
+	else:
+		return False
 
 
 if __name__ == '__main__':
-    while True:
-	   main()
+	x = 1
+	while x == 1:
+		if value[1] == '0' and value[2] == 'None':
+			main1()
+			break
+		elif value[1] == 'None' and value[2] == '1':
+			main2()
+			break
+		elif value[1] == '0' and value[2] == '1':
+			main2()
+			main1()
+			break
+		else:
+			break
+

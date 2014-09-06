@@ -36,10 +36,14 @@ def parseWeather(lat, lon):
     prob =  int(response.content[valueIndex + length:valueIndex+ length + 2])
     return prob
 
-latLngTup = getLatLng()
-prob = parseWeather(latLngTup[0], latLngTup[1])
+def main():
+	latLngTup = getLatLng()
+	prob = parseWeather(latLngTup[0], latLngTup[1])
 
-if int(prob) >= 50:
-	commandSunRoof("close")
-else:
-	
+	if int(prob) >= 50:
+		commandSunRoof("close")
+	else:
+		print "To be implemented"
+
+if __name__ == '__main__':
+	main()

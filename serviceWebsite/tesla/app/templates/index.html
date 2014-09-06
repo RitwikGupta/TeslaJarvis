@@ -2,7 +2,28 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div>
-  <h1 style="text-align: center">Welcome, {{user.nickname}}!</h1>
+<style>
+  .outer {
+    height:88%;
+    display: table;
+    width: 100%;
+    padding-right: 0;
+    padding-left: 0;
+  }
+  .inner {
+    height: 85%;
+    display: table-cell;
+    vertical-align: middle;
+    width:100%;
+  }
+  .centered {
+    float: none;
+    margin: 0 auto;
+  }
+</style>
+<div class="outer">
+  <div class="inner">
+    <h1 style="text-align: center" class="centered">Welcome, {{user.nickname}}!</h1>
+  </div>
 </div>
 {% endblock %}

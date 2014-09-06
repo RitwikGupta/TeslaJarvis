@@ -21,9 +21,8 @@
     margin: 0 auto;
   }
 </style>
-<div class="outer">
-  <div class="inner">
-    <h1 style="text-align: center" class="centered">Welcome, {{user.nickname}}!</h1>
-  </div>
+<div class="jumbotron text-center">
+  <h1>Welcome, {{user.nickname}}!</h1>
+  <img src="{{ url_for('static', filename='teslaIcon.png') }}" width="173px" height="174px"/>
 </div>
 {% endblock %}

@@ -16,17 +16,47 @@ function set_openid(openid, pr)
     document.getElementById("login").submit();}
 </script>
 <style>
-    body{
-        padding-top:30px;
+    #sign-in-area {
+        height: 88%;
+        display: table;
+        width: 100%;
+        padding-right: 0;
+        padding-left: 0;
+    }
+    #sign-in-block {
+        height: 90%;
+        display: table-cell;
+        vertical-align: middle;
+        width: 100%;
+    }
+    .centering {
+        float: none;
+        margin: 0 auto;
     }
 </style>
 <div id="sign-in-area">
     <div id="sign-in-block">
         <br>
-        <h2 style="color: black; text-align: center">Sign In</h2>
+        <h2 style="color: black; text-align: center" >Sign In</h2>
         <br>
+        <form class = "form-group" action="" method="post" name="login" style="text-align: center">
+            {{form.hidden_tag()}}
+            <p>
+                Please enter your OpenID, or select one of the providers below:<br>
+                {{form.openid(size=80)}}
+                {% for error in form.errors.openid %}
+                <span style="color: red;">[{{error}}]</span>
+                {% endfor %}<br>
+                |{% for pr in providers %}
+                <a href="javascript:set_openid('{{pr.url}}', '{{pr.name}}');">{{pr.name}}</a> |
+                {% endfor %}
+            </p>
+            <p>{{form.remember_me}} Remember Me</p>
+            <p><input type="submit" value="Sign In"></p>
+        </form>
     </div>
 </div>
+<<<<<<< HEAD
 <form class = "form-group" action="" method="post" name="login" style="text-align: center">
     {{form.hidden_tag()}}
     <p>
@@ -41,4 +71,7 @@ function set_openid(openid, pr)
     </p>
     <p>{{form.remember_me}} Remember Me</p>
 </form>
+=======
+
+>>>>>>> upstream/master
 {% endblock %}

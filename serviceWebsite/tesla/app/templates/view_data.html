@@ -1,0 +1,15 @@
+<html>
+<head>
+</head>
+<body>
+    <!-- extend base layout -->
+    {% extends "base.html" %}
+
+    {% block content %}>
+	    {% for a in dataList %}
+	    <p>{{a}}</p>
+	    <hr>
+	    {% endfor %}
+    {% endblock %}
+</body>
+</html>

@@ -1,0 +1,18 @@
+<!-- extend base layout -->
+{% extends "base.html" %}
+
+{% block content %}
+<h1>User: {{user.nickname}}!</h1>
+<hr>
+<div class="row">
+{% if g.user.teslaEmail == None %}
+	<form class="form" action={{ url_for('enterData') }}
+		<p><button type="submit" value="Enter data" class="btn btn-success" id="submit">Enter Data</button></p>
+	</form>
+{% else %}
+	<form class="form" action={{ url_for('featureSelect') }}>
+		<p><button type="submit" value="Feature select" class="btn btn-success" id="submit">Select features</button></p>
+	</form>
+{% endif %}
+</div>
+{% endblock %}

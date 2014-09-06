@@ -2,6 +2,7 @@
 
 import json, urllib
 
+# Parameters - end_state is a string. Options are: "open", "close", "vent", "comfort"
 def change_state(end_state):
     if (end_state not in ["open", "close", "vent", "comfort"]):
 		print "bad end_state given"

@@ -1,4 +1,9 @@
 from urllib2 import Request, urlopen
+import smtplib
+
+server = smtplib.SMTP( "smtp.gmail.com", 587 )
+server.starttls()
+server.login( 'teslajarvis@gmail.com', 'fuckitshipit' )
 
 def chargingLocation(lat, lon):
 
@@ -18,7 +23,7 @@ def chargingLocation(lat, lon):
 
 		if response_body['charging_state'] != "Complete" and response_body['battery_current'] >= -.01:
 
-			//send text
+			server.sendmail( 'teslaalert@tls.com', '4129252235@vtext.com', 'Plug in your piece of shit car yo' )
 
 			//open charge port
 			from urllib2 import Request, urlopen

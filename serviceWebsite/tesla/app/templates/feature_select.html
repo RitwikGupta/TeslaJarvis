@@ -6,7 +6,13 @@
     {% extends "base.html" %}
 
     {% block content %}
-    	<p> temp </p>
+	<div class="container text-center">
+		<form class="form" method="post" action={{ url_for('features') }}>
+			<p><input type="checkbox" name="sunroofPrecip" value="0"> If it's about to rain, we'll close your sunroof</p>
+			<p><input type="checkbox" name="carCharge" value="1"> If you forgot to plug in your car, we'll remind you</p>
+			<p><input type="submit" value="Submit"></p>
+		</form>
+    </div>
     {% endblock %}
 </body>
 </html>

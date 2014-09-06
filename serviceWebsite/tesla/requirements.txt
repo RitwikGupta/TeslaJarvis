@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 flask==0.9
 flask-login
 flask-openid
@@ -10,3 +11,6 @@ flask-wtf==0.8.4
 pytz==2013b
 flask-babel==0.8
 flup
+=======
+Flask==0.10.1
+>>>>>>> upstream/master

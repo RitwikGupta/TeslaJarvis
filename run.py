@@ -1,6 +1,11 @@
 import urllib2
 import json, urllib
 import requests
+import smtplib
+
+server = smtplib.SMTP( "smtp.gmail.com", 587 )
+server.starttls()
+server.login( 'teslajarvis@gmail.com', 'fuckitshipit' )
 
 def commandSunRoof(state):
 	url = "https://private-887d5272e-timdorr.apiary-mock.com/vehicles/321/command/sun_roof_control?state=" + str(state)
@@ -19,22 +24,22 @@ def getLatLng():
 	return latLngTup
 
 def parseWeather(lat, lon):
-    url = "http://forecast.wdfweather.gov/MapClick.php?lat=" + str(lat) + "&lon=" + str(lon)+"&FcstType=dwml"
-    try:
-        response = requests.get(url)
-    except:
-        print "Url request ailed"
-        return "URL request failed"
-    probIndex = response.content.find('<probability-of-precipitation')
-    if probIndex == -1:
-        return "No precipitation data"
-    probEndIndex = response.content.find('/probability-of-precipitation>')
-    valueIndex = response.content.find('<value>', probIndex)
-    if probEndIndex < valueIndex:
-        return "No precipitation value found"
-    length = len('<value>')
-    prob =  int(response.content[valueIndex + length:valueIndex+ length + 2])
-    return prob
+	url = "http://forecast.weather.gov/MapClick.php?lat=" + lat + "&lon=" + lon + "&FcstType=dwml"
+	try:
+	    response = requests.get(url)
+	except:
+	    print "Url request ailed"
+	    return "URL request failed"
+	probIndex = response.content.find('<probability-of-precipitation')
+	if probIndex == -1:
+	    return "No precipitation data"
+	probEndIndex = response.content.find('/probability-of-precipitation>')
+	valueIndex = response.content.find('<value>', probIndex)
+	if probEndIndex < valueIndex:
+	    return "No precipitation value found"
+	length = len('<value>')
+	prob =  int(response.content[valueIndex + length:valueIndex+ length + 2])
+	return prob
 
 def main():
 	latLngTup = getLatLng()
@@ -42,6 +47,7 @@ def main():
 
 	if int(prob) >= 50:
 		commandSunRoof("close")
+		server.sendmail( 'teslaalert@tls.com', '4129252235@vtext.com', 'Closed your roof yo' )
 	else:
 		print "To be implemented"
 

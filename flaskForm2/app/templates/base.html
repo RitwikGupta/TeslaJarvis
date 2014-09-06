@@ -1,16 +1,14 @@
 <html>
   <head>
     {% if title %}
-    <title>{{title}} - microblog</title>
+    <title>{{title}} - Tesla</title>
     {% else %}
-    <title>microblog</title>
+    <title>Tesla</title>
     {% endif %}
   </head>
   <body>
-    <div>Microblog: 
-        <a href="/index">Home</a>
+    <div>Tesla: 
         {% if g.user.is_authenticated() %}
-        | <a href="{{ url_for('user', nickname = g.user.nickname) }}">Your Profile</a>
         | <a href="{{ url_for('logout') }}">Logout</a>
         {% endif %}
     </div>

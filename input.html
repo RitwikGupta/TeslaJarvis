@@ -1,0 +1,12 @@
+<form id="demo" action='submit.php' method='post' enctype='text/plain'>
+link: <input type='text' name='web' value="" /></br>
+<input type='submit' value='submit' />
+</form>
+
+<?php
+$fp=fopen('sub.txt','a'); 
+fwrite($fp,addslashes($_POST['web']). "\r\n"); 
+fclose($fp); 
+header('location: thanks.html'); 
+exit();
+?>

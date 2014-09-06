@@ -1,0 +1,25 @@
+<html>
+<head>
+</head>
+<body>
+    <!-- extend base layout -->
+    {% extends "base.html" %}
+
+    {% block content %}
+    <div class="container text-center">
+        <form class="form" method="post" action={{ url_for('data') }}>
+            <table class="table">
+                <tr>
+                    <td>Email: </td><div class="input-group input-group-sm"><td><input name="email" class="form-control"></input></td></div>
+                </tr>
+                <tr>
+                    <td>Password: </td><div class="input-group input-group-sm"><td><input name="password" class="form-control"></input></td></div>
+                </tr>
+
+            </table>
+            <input type="submit" />
+        </form>
+    </div>
+    {% endblock %}
+</body>
+</html>

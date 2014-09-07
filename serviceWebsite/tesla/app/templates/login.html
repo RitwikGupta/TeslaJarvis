@@ -40,7 +40,6 @@ function set_openid(openid, pr)
             <h1>TeslaJarvis</h1>
             {{form.hidden_tag()}}
             <p>
-                {{form.openid(size=80)}}
                 {% for error in form.errors.openid %}
                 <span style="color: red;">[{{error}}]</span>
                 {% endfor %}<br>

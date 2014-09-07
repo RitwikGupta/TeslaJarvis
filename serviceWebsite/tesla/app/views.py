@@ -76,9 +76,11 @@ def logout():
 @login_required
 def data():
     user = g.user
-    dataList = [request.form['email'], request.form['password']]
+    dataList = [request.form['email'], request.form['password'], request.form['phoneNumber'], request.form['provider']]
     user.teslaEmail = dataList[0]
     user.password = dataList[1]
+    user.phoneNumber = dataList[2]
+    user.provider = dataList[3]
     db.session.commit()
     return render_template('view_data.html', dataList = dataList, title='Test')
 
@@ -98,5 +100,5 @@ def features():
     value = []
     value.append(request.form.get('sunroofPrecip'))
     value.append(request.form.get('carCharge'))
-    subprocess.call(['python', './app/code/run.py', str(value[0]), str(value[1])])
+    subprocess.call(['python', './app/code/run.py', str(value[0]), str(value[1]), str(g.user.phoneNumber), str(g.user.provider)])
     return "Called"

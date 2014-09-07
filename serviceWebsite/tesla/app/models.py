@@ -9,6 +9,8 @@ class User(db.Model):
     email = db.Column(db.String(120), index = True, unique = True)
     teslaEmail = db.Column(db.String(120), index = True, unique = True)
     password = db.Column(db.String(120), index = True, unique = False)
+    phoneNumber = db.Column(db.Integer, unique = True)
+    provider = db.Column(db.String(30), index = True, unique = False)
     role = db.Column(db.SmallInteger, default = ROLE_USER)
     
     def is_authenticated(self):

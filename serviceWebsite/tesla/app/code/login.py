@@ -1,6 +1,7 @@
 # Eric Chen, MHacks IV, Sept 2014
 # Login to Tesla.
 # curl --cookie-jar cookies.txt --include --request POST --header "Content-Type: application/x-www-form-urlencoded" --data-binary "user_session%5Bemail%5D='mvanvleet@pillartechnology.com'&user_session%5Bpassword%5D=pitt1234" https://portal.vn.teslamotors.com/login
+# curl --cookie cookies.txt --include https://portal.vn.teslamotors.sun_roof_control?state=close
 
 
 from urllib2 import Request, urlopen
@@ -41,7 +42,7 @@ def commandSunRoof(state):
 def main():
 	curl = ["curl", "--cookie-jar", "cookies.txt", "--include",
 	"--request", "POST", "--header", "Content-Type: application/x-www-form-urlencoded",
-	"--data-binary", "user_session%5Bemail%5D='mvanvleet@pillartechnology.com'&user_session%5Bpassword%5D=pitt1234",
+	"--data-binary", "user_session%5Bemail%5D='mvanvleet@pillartechnology.com'&user_session%5Bpassword%5D=move1234",
 	"https://portal.vn.teslamotors.com/login"]
 
 	response = subprocess.check_output(curl)
@@ -49,4 +50,4 @@ def main():
 
 main()
 
-curl --cookie-jar cookies.txt --include --request POST --header Content-Type: application/x-www-form-urlencoded --data-binary user_session%5Bemail%5D='mvanvleet@pillartechnology.com'&user_session%5Bpassword%5D=pitt1234 https://portal.vn.teslamotors.com/login
+#curl --cookie-jar cookies.txt --include --request POST --header Content-Type: application/x-www-form-urlencoded --data-binary user_session%5Bemail%5D='mvanvleet@pillartechnology.com'&user_session%5Bpassword%5D=pitt1234 https://portal.vn.teslamotors.com/login

@@ -11,7 +11,17 @@ server = smtplib.SMTP( "smtp.gmail.com", 587 )
 server.starttls()
 server.login( 'teslajarvis@gmail.com', 'fuckitshipit' )
 
+PNUMBER = sys.argv[3]
+PPROVIDER = sys.argv[4]
 
+if PPROVIDER.lower() == "verizon":
+	PPROVIDER = "@vtext.com"
+elif PPROVIDER.lower() == "att":
+	PPROVIDER = "@txt.att.net"
+elif PPROVIDER.lower() == "sprint":
+	PPROVIDER = "@messaging.sprintpcs.com"
+else:
+	PPROVIDER = "@tmomail.net"
 
 def commandSunRoof(state):
 	url = "https://private-887d5272e-timdorr.apiary-mock.com/vehicles/321/command/sun_roof_control?state=" + str(state)
@@ -59,7 +69,7 @@ def main1():
     prob = 60
     if int(prob) >= 50:
     	commandSunRoof("close")
-    	server.sendmail( 'teslaalert@tls.com', '4129252235@vtext.com', 'We closed your roof because the probablity of precipitation in your area was ' + str(prob) + "%")
+    	server.sendmail( 'teslaalert@tls.com', PNUMBER + PPROVIDER, 'We closed your roof because the probablity of precipitation in your area was ' + str(prob) + "%")
     else:
     	print "To be implemented"
 def main2():
@@ -80,7 +90,7 @@ def main2():
 
 		if chargingBatCurrTup[0] != "Charging" and float(chargingBatCurrTup[1]) <= -.01:
 			print "sent"
-			server.sendmail( 'teslaalert@tls.com', '4129252235@vtext.com', 'You forgot to plug in your car!' )
+			server.sendmail( 'teslaalert@tls.com', PNUMBER + PPROVIDER, 'You forgot to plug in your car!' )
 
 		else:
 			return True

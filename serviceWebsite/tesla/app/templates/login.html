@@ -38,7 +38,9 @@ function set_openid(openid, pr)
     <div id="sign-in-block">
         <form class = "form-group" action="" method="post" name="login" style="text-align: center; color: #D55B6A">
             <h1>TeslaJarvis</h1>
+            {{form.hidden_tag()}}
             <p>
+                <div id="divTextbox" style="display: none;">{{form.openid(size=80)}}</div>
                 {% for error in form.errors.openid %}
                 <span style="color: red;">[{{error}}]</span>
                 {% endfor %}<br>

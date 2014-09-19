@@ -57,7 +57,7 @@ def main():
     prob = 60
     if int(prob) >= 50:
     	commandSunRoof("close")
-    	server.sendmail( 'teslaalert@tls.com', '4129252235@vtext.com', 'We closed your roof because the probablity of precipitation in your area was ' + str(prob) + "%")
+    	server.sendmail( 'teslaalert@tls.com', 'XXXXXXXXXX@vtext.com', 'We closed your roof because the probablity of precipitation in your area was ' + str(prob) + "%")
     else:
     	print "To be implemented"
     time.sleep(300)
